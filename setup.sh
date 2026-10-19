@@ -64,7 +64,13 @@ if [ ! -f backend/.env ]; then
   printf 'MONGODB_URI=mongodb://localhost:27017/nexlearn\nJWT_SECRET=%s\nPORT=4000\nFRONTEND_URL=http://localhost:3000\n' "$SECRET" > backend/.env
   echo "backend/.env created (random JWT_SECRET generated)."
 fi
-[ -f frontend/.env.local ] || cp frontend/.env.example frontend/.env.local
+if [ ! -f frontend/.env.local ]; then
+  if [ -f frontend/.env.example ]; then
+    cp frontend/.env.example frontend/.env.local
+  else
+    printf 'NEXT_PUBLIC_SITE_URL=http://localhost:3000\nNEXT_PUBLIC_API_URL=http://localhost:4000\n' > frontend/.env.local
+  fi
+fi
 
 if ! (echo > /dev/tcp/127.0.0.1/27017) 2>/dev/null; then
   warn "MongoDB not detected on :27017 — server will run, but data routes return 503."
