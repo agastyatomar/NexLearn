@@ -1,0 +1,243 @@
+import Link from "next/link";
+import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
+import { API_BASE } from "@/lib/api";
+import { LessonRunner } from "@/components/lesson/LessonRunner";
+import { Check, Eye, Lock, MessageCircle } from "lucide-react";
+
+async function getLesson(lessonId) {
+  const cookieStore = await cookies();
+  const res = await fetch(`${API_BASE}/api/lessons/${lessonId}`, {
+    headers: { Cookie: cookieStore.toString() },
+    cache: "no-store",
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error("Failed to load lesson");
+  const data = await res.json();
+  return data;
+}
+
+async function getProgress(lessonId) {
+  const cookieStore = await cookies();
+  const res = await fetch(`${API_BASE}/api/progress/${lessonId}`, {
+    headers: { Cookie: cookieStore.toString() },
+    cache: "no-store",
+  });
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data?.progress ?? null;
+}
+
+async function getNextLesson(lessonId) {
+  const cookieStore = await cookies();
+  const res = await fetch(`${API_BASE}/api/courses`, {
+    headers: { Cookie: cookieStore.toString() },
+    cache: "no-store",
+  });
+  if (!res.ok) return null;
+  const data = await res.json();
+  // "Next" stays inside the same course so paths never leak into each other
+  const lessonCourse = (data.courses ?? []).find((c) =>
+    (c.units ?? []).some((u) => (u.lessons ?? []).some((l) => String(l._id) === String(lessonId))),
+  );
+  const all = lessonCourse
+    ? (lessonCourse.units ?? []).flatMap((u) => u.lessons ?? [])
+    : (data.courses ?? []).flatMap((c) => (c.units ?? []).flatMap((u) => u.lessons ?? []));
+  const idx = all.findIndex((l) => String(l._id) === String(lessonId));
+  if (idx < 0 || idx + 1 >= all.length) return null;
+  const next = all[idx + 1];
+  return { id: String(next._id), title: next.title };
+}
+
+function ViewOnlyExercise({ exercise, index }) {
+  const typeLabel = {
+    multiple_choice: "Multiple choice",
+    fill_blank: "Fill in the blank",
+    arrange: "Arrange",
+    predict_output: "Predict output",
+    fix_bug: "Fix the bug",
+    write_code: "Write code",
+    ai_prompt: "AI prompt",
+  }[exercise.type] ?? exercise.type;
+
+  return (
+    <div className="rounded-[12px] border-2 border-dim-steel bg-night p-5">
+      <div className="flex items-center gap-2">
+        <span className="rounded-full bg-dim-steel/20 px-2.5 py-1 font-body text-[11px] font-bold uppercase tracking-[0.04em] text-steel">
+          {index + 1}. {typeLabel}
+        </span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-soft-violet px-2 py-1 font-body text-[11px] font-bold leading-none text-ink">
+          <Check className="h-3 w-3" strokeWidth={2.5} aria-hidden="true" />
+          View only
+        </span>
+      </div>
+      <h3 className="mt-3 font-body text-[15px] font-bold leading-[1.4] text-ink">{exercise.prompt}</h3>
+
+      {/* Content preview — show code/options in muted style */}
+      {exercise.content?.code ? (
+        <pre className="mt-3 overflow-x-auto rounded-[10px] border-2 border-dim-steel bg-dim-steel/10 p-3 font-mono text-[13px] leading-[1.5] text-ink">
+          <code>{exercise.content.code}</code>
+        </pre>
+      ) : null}
+      {exercise.content?.snippet ? (
+        <pre className="mt-3 overflow-x-auto rounded-[10px] border-2 border-dim-steel bg-dim-steel/10 p-3 font-mono text-[13px] leading-[1.5] text-ink">
+          <code>{exercise.content.snippet}</code>
+        </pre>
+      ) : null}
+      {exercise.content?.blocks ? (
+        <div className="mt-3 flex flex-col gap-1.5">
+          {exercise.content.blocks.map((b, i) => (
+            <div key={i} className="rounded-[10px] border-2 border-dim-steel bg-night px-3 py-2 font-mono text-[12px] text-ink">
+              {b}
+            </div>
+          ))}
+        </div>
+      ) : null}
+      {exercise.content?.options ? (
+        <div className="mt-3 flex flex-col gap-1.5">
+          {exercise.content.options.map((o, i) => {
+            const isCorrect =
+              (exercise.type === "multiple_choice" && i === exercise.solution?.correctIndex) ||
+              (exercise.type === "predict_output" && String(o) === String(exercise.solution?.answer)) ||
+              (exercise.type === "fill_blank" && String(o) === String(exercise.solution?.answer));
+            return (
+              <div
+                key={i}
+                className={
+                  isCorrect
+                    ? "rounded-[10px] border-2 border-nex-blue bg-soft-violet px-3 py-2 font-mono text-[13px] font-bold text-ink"
+                    : "rounded-[10px] border-2 border-dim-steel bg-night px-3 py-2 font-mono text-[13px] text-ink opacity-70"
+                }
+              >
+                {o} {isCorrect ? " — correct" : ""}
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
+      {exercise.content?.starterCode ? (
+        <pre className="mt-3 overflow-x-auto rounded-[10px] border-2 border-dim-steel bg-night p-3 font-mono text-[12px] leading-[1.5] text-ink">
+          <code>{exercise.content.starterCode}</code>
+        </pre>
+      ) : null}
+      {exercise.type === "ai_prompt" && exercise.content?.scenario ? (
+        <div className="mt-3 rounded-[10px] border-2 border-electric-cyan/40 bg-[#e6f4ff] px-3 py-2">
+          <p className="font-body text-[13px] font-medium leading-[1.5] text-ink">{exercise.content.scenario}</p>
+        </div>
+      ) : null}
+      {exercise.type === "ai_prompt" && Array.isArray(exercise.content?.checklist) ? (
+        <div className="mt-3 flex flex-col gap-1.5">
+          {exercise.content.checklist.map((item, i) => {
+            const right = exercise.solution?.checklist?.[i];
+            return (
+              <div
+                key={i}
+                className={
+                  right
+                    ? "rounded-[10px] border-2 border-nex-blue bg-soft-violet px-3 py-2 font-body text-[13px] font-bold text-ink"
+                    : "rounded-[10px] border-2 border-dim-steel bg-night px-3 py-2 font-body text-[13px] text-ink opacity-70"
+                }
+              >
+                {item} — {right ? "Yes" : "No"}
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
+
+      <div className="mt-3 rounded-[10px] border-2 border-nex-blue bg-soft-violet px-3 py-2">
+        <p className="font-body text-[13px] font-bold text-ink">
+          Answer:{" "}
+          <span className="font-mono font-medium">
+            {exercise.type === "multiple_choice"
+              ? exercise.content?.options?.[exercise.solution?.correctIndex]
+              : exercise.type === "fill_blank"
+                ? String(exercise.solution?.answer)
+                : exercise.type === "arrange"
+                  ? `Order ${JSON.stringify(exercise.solution?.order)}`
+                  : exercise.type === "predict_output"
+                    ? String(exercise.solution?.answer)
+                    : exercise.type === "ai_prompt"
+                      ? `Checklist: ${(exercise.solution?.checklist ?? []).map((c) => (c ? "Yes" : "No")).join(", ")}`
+                      : exercise.type === "fix_bug"
+                      ? exercise.solution?.fixed?.slice(0, 80) + "…"
+                      : exercise.solution?.code?.slice(0, 80) + "…"}
+          </span>
+        </p>
+        <p className="mt-1 font-body text-[13px] font-medium leading-[1.4] text-ink">{exercise.explanation}</p>
+      </div>
+    </div>
+  );
+}
+
+export default async function LessonPage({ params }) {
+  const { lessonId } = await params;
+  const [data, progress, nextLesson] = await Promise.all([getLesson(lessonId), getProgress(lessonId), getNextLesson(lessonId)]);
+  if (!data) notFound();
+
+  const { lesson, exercises } = data;
+  const isCompleted = progress?.status === "completed";
+
+  return (
+    <div className="mx-auto w-full max-w-[900px]">
+      <div className="mb-4 flex items-center gap-3">
+        <span className="font-body text-[13px] font-bold uppercase tracking-[0.04em] text-steel">
+          {lesson.title} · {exercises.length} exercises
+        </span>
+        <Link
+          href={`/app/community?lessonId=${String(lesson._id)}`}
+          className="inline-flex items-center gap-1.5 rounded-[12px] border-2 border-dim-steel bg-night px-3 py-1.5 font-body text-[13px] font-bold text-electric-cyan transition-colors hover:border-electric-cyan"
+        >
+          <MessageCircle className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
+          Discuss
+        </Link>
+        {isCompleted ? (
+          <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-soft-violet px-3 py-1 font-body text-[11px] font-bold uppercase tracking-[0.04em] text-ink">
+            <Eye className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
+            View only
+          </span>
+        ) : null}
+      </div>
+
+      {isCompleted ? (
+        <div className="flex flex-col gap-6">
+          <div className="rounded-[12px] border-2 border-nex-blue bg-soft-violet p-4 text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-nex-blue text-snow">
+              <Check className="h-6 w-6" strokeWidth={2.5} aria-hidden="true" />
+            </div>
+            <h1 className="mt-3 font-body text-[20px] font-bold leading-[1.2] text-ink">You’ve completed this lesson</h1>
+            <p className="mt-1 font-body text-[14px] font-medium leading-[1.4] text-ink">
+              Score {progress?.score ?? 100}% · {progress?.bestScore ?? progress?.score ?? 100}% best · {lesson.xpReward ?? 10} XP earned
+            </p>
+            <p className="mx-auto mt-2 max-w-[520px] font-body text-[13px] font-medium leading-[1.4] text-ink">
+              This lesson is now view-only — you can’t redo it, but you can review the exercises and correct answers below.
+            </p>
+            <div className="mt-4 flex justify-center gap-3">
+              <Link
+                href="/app/learn"
+                className="inline-flex items-center justify-center rounded-[12px] border-2 border-nex-blue bg-nex-blue px-5 py-2.5 font-body text-[14px] font-bold text-snow shadow-[0_4px_0_var(--color-nex-blue-deep)]"
+              >
+                Back to path
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {exercises.map((ex, i) => (
+              <ViewOnlyExercise key={String(ex._id)} exercise={ex} index={i} />
+            ))}
+          </div>
+
+          <div className="rounded-[12px] border-2 border-dim-steel bg-night p-4 text-center">
+            <p className="inline-flex items-center gap-1.5 font-body text-[13px] font-bold text-steel">
+              <Lock className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
+              View-only — progress already saved
+            </p>
+          </div>
+        </div>
+      ) : (
+        <LessonRunner lesson={lesson} exercises={exercises} nextLesson={nextLesson} />
+      )}
+    </div>
+  );
+}

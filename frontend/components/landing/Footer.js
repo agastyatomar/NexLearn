@@ -1,0 +1,140 @@
+/* Footer — full-bleed abyss (near-black navy) band.
+   Polished footer with logo, tagline, link columns,
+   social links, and maintainer credit. Server component.
+   Snow + soft-violet text on the dark band. */
+
+import Link from "next/link";
+import { BrandMark } from "@/components/BrandLogo";
+
+const LINK_COLUMNS = [
+  {
+    heading: "Product",
+    links: [
+      { label: "Learn", href: "#learn" },
+      { label: "Community", href: "#community" },
+      { label: "Courses", href: "/app" },
+      { label: "Docs", href: "/docs" },
+    ],
+  },
+  {
+    heading: "Account",
+    links: [
+      { label: "Log in", href: "/login" },
+      { label: "Sign up", href: "/signup" },
+      { label: "Forgot password", href: "/forgot-password" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { label: "Policy", href: "/policy" },
+      { label: "Terms", href: "/terms" },
+    ],
+  },
+];
+
+function GithubIcon({ className }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+    </svg>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer className="bg-abyss border-t border-[#1d2a52]">
+      <div className="mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 md:py-20">
+        {/* Top section — logo + tagline */}
+        <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
+          <Link
+            href="/"
+            aria-label="NexLearn home"
+            className="inline-flex items-center gap-3"
+          >
+            <span className="flex h-11 w-11 items-center justify-center rounded-[12px] bg-night p-1">
+              <BrandMark size={32} />
+            </span>
+            <span className="font-feather text-[32px] leading-none font-black tracking-[-0.02em] text-snow">
+              NexLearn
+            </span>
+          </Link>
+          <p className="mt-2 max-w-[320px] font-body text-[15px] leading-[1.4] font-medium text-snow/80">
+            Learn programming for free — bite-sized lessons, real code, and a
+            community that has your back.
+          </p>
+        </div>
+
+        {/* Link columns */}
+        <div className="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:mt-12">
+          {LINK_COLUMNS.map((col) => (
+            <div key={col.heading}>
+              <h3 className="font-body text-[13px] leading-[1.23] font-bold uppercase tracking-[0.795px] text-snow/60">
+                {col.heading}
+              </h3>
+              <ul className="mt-3 flex flex-col gap-2.5">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="font-body text-[15px] leading-[1.33] font-medium text-snow transition-colors duration-[var(--duration-fast)] ease-[var(--ease-smooth-out)] hover:text-indigo-ink"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Divider */}
+        <hr className="mt-12 border-snow/15" />
+
+        {/* Bottom bar — logo mark, social, credit */}
+        <div className="mt-8 flex flex-col items-center gap-6 sm:flex-row sm:items-end sm:justify-between">
+          {/* Left — small logo + copyright */}
+          <div className="flex flex-col items-center gap-3 sm:items-start">
+            <Link
+              href="/"
+              aria-label="NexLearn home"
+              className="inline-flex items-center gap-2 font-feather text-[20px] leading-none font-black tracking-[-0.02em] text-snow"
+            >
+              <span className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-night p-0.5">
+                <BrandMark size={20} />
+              </span>
+              Learn Fast with Community
+            </Link>
+            <p className="font-body text-[13px] leading-[1.23] text-snow/50">
+              © {new Date().getFullYear()} NexLearn. All rights reserved.
+            </p>
+          </div>
+
+          {/* Right — social + credit */}
+          <div className="flex flex-col items-center gap-3 sm:items-end">
+            {/* GitHub link */}
+            <a
+              href="https://github.com/agastyatomar"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="NexLearn on GitHub"
+              className="inline-flex items-center gap-2 rounded-[12px] border-2 border-snow/25 bg-snow/10 px-3 py-1.5 font-body text-[13px] leading-[1.23] font-bold text-snow transition-all duration-[var(--duration-fast)] ease-[var(--ease-smooth-out)] hover:border-snow/40 hover:bg-snow/20"
+            >
+              <GithubIcon className="size-4" />
+              @agastyatomar
+            </a>
+            <p className="font-body text-[13px] leading-[1.23] text-snow/60">
+              Maintained by{" "}
+              <span className="font-bold text-snow">agastyatomar</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
