@@ -97,7 +97,10 @@ export function BottomNav({ user }) {
 
   // Clear optimistic pending once navigation completes
   useEffect(() => {
-    if (pending && isActive(pathname, pending)) setPending(null);
+    if (pending && isActive(pathname, pending)) {
+      const t = setTimeout(() => setPending(null), 0);
+      return () => clearTimeout(t);
+    }
     // If pathname changed to something else, also clear
     if (pending && pathname !== pending && !isActive(pathname, pending)) {
       // keep pending only until next pathname settles, then timeout clear

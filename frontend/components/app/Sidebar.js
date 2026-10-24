@@ -88,7 +88,10 @@ export function Sidebar({ user }) {
   }, [router]);
 
   useEffect(() => {
-    if (pending && isActive(pathname, pending)) setPending(null);
+    if (pending && isActive(pathname, pending)) {
+      const t = setTimeout(() => setPending(null), 0);
+      return () => clearTimeout(t);
+    }
     if (pending && pathname !== pending && !isActive(pathname, pending)) {
       const t = setTimeout(() => setPending(null), 300);
       return () => clearTimeout(t);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LessonProgressBar } from "@/components/lesson/LessonProgressBar";
@@ -180,7 +180,7 @@ export function LessonRunner({ lesson, exercises, nextLesson }) {
   const current = exercises[idx];
 
   // ----- Draft: persist on every change (debounced) -----
-  const saveDraft = useRef(async (next) => {
+  const saveDraft = useCallback(async (next) => {
     if (!progressDb.isSupported() || !lesson?._id || done) return;
     if (!draftLoadedRef.current) return;
     const hasAnyAnswer = next.answers && Object.keys(next.answers).length > 0;
@@ -200,7 +200,7 @@ export function LessonRunner({ lesson, exercises, nextLesson }) {
       });
       window.dispatchEvent(new Event("nexlearn:draft-update"));
     } catch {}
-  }).current;
+  }, [lesson._id, lesson.title, done, total, storeUserId]);
 
   useEffect(() => {
     if (!draftLoadedRef.current) return;

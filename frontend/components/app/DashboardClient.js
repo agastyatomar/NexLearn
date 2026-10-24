@@ -18,7 +18,10 @@ export function DashboardClient({ user: initialUser, courses, initialProgress })
   const pendingCount = useProgressStore((s) => s.pendingCount);
   const isOffline = useProgressStore((s) => s.isOffline);
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(t);
+  }, []);
 
   // IDB-first progress merge — gated by mounted to avoid hydration mismatch
   const progress = useMemo(() => {

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { createElement } from "react";
 import { Lock, Check, Play, RotateCcw, Code2, Layers, GraduationCap, Rocket, Trophy, Clock } from "lucide-react";
 
 const ICONS = {
@@ -29,7 +30,6 @@ export function LessonCard({ lesson, status, draft, index, totalInUnit, unitTitl
   const isContinue = isAvailable && hasDraft;
   // draft progress: idx is 0-based current exercise
   const draftProgress = draft ? Math.round(((draft.idx + 1) / (draft.total || 1)) * 100) : 0;
-  const Icon = getIcon(lesson.title);
   const href = isLocked ? "#" : `/app/learn/${String(lesson._id)}`;
   const lessonNumber = typeof index === "number" ? index + 1 : 1;
 
@@ -116,7 +116,7 @@ export function LessonCard({ lesson, status, draft, index, totalInUnit, unitTitl
       {/* Icon + title */}
       <div className="mt-3 flex gap-3">
         <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] border-2 ${isLocked ? "border-dim-steel bg-dim-steel/10 text-steel" : isCompleted ? "border-nex-blue bg-nex-blue text-snow" : isContinue ? "border-electric-cyan bg-electric-cyan text-snow" : "border-dim-steel bg-night text-ink"}`}>
-          <Icon className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
+          {createElement(getIcon(lesson.title), { className: "h-5 w-5", strokeWidth: 2, "aria-hidden": true })}
         </div>
         <div className="min-w-0 flex-1">
           <h3 className="line-clamp-2 font-body text-[15px] font-black leading-[1.2] text-ink">{lesson.title}</h3>

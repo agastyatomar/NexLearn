@@ -1,0 +1,21 @@
+{
+  "name": "nexlearn",
+  "private": true,
+  "version": "1.0.0",
+  "description": "NexLearn — gamified, offline-friendly coding platform for Indian learners (Next.js app on Cloudflare Workers + Hono API + D1)",
+  "scripts": {
+    "setup": "bash setup.sh",
+    "dev": "bun --cwd frontend dev & bun --cwd backend dev",
+    "build": "bun --cwd frontend build && bun --cwd backend build",
+    "lint": "bun --cwd frontend lint && bun --cwd backend lint",
+    "test": "bun test worker/tests",
+    "check:worker": "cd frontend && bun run typecheck:worker",
+    "doctor": "bash setup.sh --doctor",
+    "seed:d1": "bun --cwd frontend run seed:d1",
+    "seed:d1:apply": "bun --cwd frontend run seed:d1:apply",
+    "cf:deploy-preamble": "echo 'Manual/in-Linux deploys need wrangler; this repo deploys via Cloudflare Workers Builds from GitHub (see DEPLOY-CLOUDFLARE.md).'"
+  },
+  "engines": {
+    "bun": ">=1.4"
+  }
+}

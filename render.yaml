@@ -1,0 +1,25 @@
+# Render blueprint — deploys the NexLearn backend as a free web service.
+# Render reads this file automatically when you click "New -> Blueprint"
+# on the repository (no credit card needed on the free plan).
+services:
+  - type: web
+    name: nexlearn-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    region: singapore
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Auto-generated long random secret. Set your own from a secrets
+      # manager if you want it stable across redeploys.
+      - key: JWT_SECRET
+        generateValue: true
+      # Fill these in the Render dashboard after first deploy:
+      - key: MONGODB_URI
+        sync: false
+      - key: FRONTEND_URL
+        sync: false

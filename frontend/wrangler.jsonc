@@ -1,0 +1,39 @@
+// NexLearn — single Cloudflare Worker serving the Next.js app + /api (Hono + D1)
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nexlearn",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-30",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // Create the DB with: bunx wrangler d1 create nexlearn
+  // then paste the database_id here (keep placeholder out of CI secrets).
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "nexlearn",
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "migrations_dir": "worker/d1/migrations"
+    }
+  ],
+  "triggers": {
+    "crons": ["* * * * *"]
+  },
+  "vars": {
+    "NODE_ENV": "production",
+    "AI_DAILY_LIMIT": "20",
+    "AI_AUTO_REPLY_DELAY_MS": "180000"
+  }
+  // Secrets (set via dashboard or CLI, NEVER in git):
+  //   JWT_SECRET            — session token signing
+  //   GOOGLE_CLIENT_ID      — optional Google sign-in
+  //   APPWRITE_ENDPOINT / APPWRITE_PROJECT_ID / APPWRITE_BUCKET_ID /
+  //   APPWRITE_API_KEY      — optional avatar storage
+  //   GROQ_API_KEY / OPENROUTER_API_KEY — optional AI helper
+}

@@ -64,7 +64,10 @@ export function LearnPathClient({ courses, initialProgressMap, activeCourseId })
   const [mounted, setMounted] = useState(false);
   const [draftMap, setDraftMap] = useState({});
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(t);
+  }, []);
 
   // Load lesson drafts (IndexedDB only) for Continue status
   useEffect(() => {

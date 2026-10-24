@@ -113,12 +113,19 @@ bun run lint     # tsc --noEmit (type check)
 bun run build    # tsc emit check
 ```
 
-> There is currently no automated unit-test suite in this project; lint + type check + production build are the verification gates.
+> Verification gates: `frontend` — eslint + next build + worker typecheck + the cloudflare API test suite (`bun test worker/tests`); `backend` — tsc + build.
 
 ## Deployment
 
+**Recommended: one Cloudflare Worker for everything.** See
+[DEPLOY-CLOUDFLARE.md](./DEPLOY-CLOUDFLARE.md) — the Next.js app and the
+`/api` (Hono, same-origin) live in one Worker with Cloudflare D1 as the
+database. Live link in ~30 minutes, no CORS, no separate backend host.
+
+The classic split-stack deployment still works if you prefer separate hosts:
+
 - **Frontend**: deploy `frontend/` to Vercel (or any Node host). Set `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_API_URL`.
-- **Backend**: deploy `backend/` to any Bun-capable host (Render, Railway, Fly.io). Set `MONGODB_URI`, `JWT_SECRET`, `FRONTEND_URL`, and `COOKIE_DOMAIN` if cookies must span domains.
+- **Backend**: deploy `backend/` to any Bun-capable host (Render, Railway, Fly.io). Set `MONGODB_URI`, `JWT_SECRET`, `FRONTEND_URL`, and `COOKIE_DOMAIN` if cookies must span domains. `render.yaml` + `backend/Dockerfile` ship a Render blueprint.
 - **Database**: MongoDB Atlas free tier works out of the box.
 
 ## Project structure
