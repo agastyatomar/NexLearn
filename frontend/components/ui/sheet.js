@@ -61,11 +61,11 @@ function SheetContent({ className, children, side = "right", ...props }) {
         {children}
         <SheetClose
           aria-label="Close menu"
-          className="absolute top-4 right-4 rounded-[12px] p-2 text-steel transition-colors duration-[var(--duration-fast)] ease-[var(--ease-smooth-out)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-cyan"
+          className="absolute top-4 right-4 rounded-[12px] p-2.5 text-steel transition-colors duration-[var(--duration-fast)] ease-[var(--ease-smooth-out)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-cyan"
         >
           <svg
-            width="20"
-            height="20"
+            width="24"
+            height="24"
             viewBox="0 0 20 20"
             fill="none"
             stroke="currentColor"

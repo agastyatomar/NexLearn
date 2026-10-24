@@ -49,7 +49,7 @@ function GithubIcon({ className }) {
 
 export function Footer() {
   return (
-    <footer className="bg-abyss border-t border-[#1d2a52]">
+    <footer className="bg-abyss border-t border-[#2c284e]">
       <div className="mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 md:py-20">
         {/* Top section — logo + tagline */}
         <div className="flex flex-col items-center text-center sm:items-start sm:text-left">

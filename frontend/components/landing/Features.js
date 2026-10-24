@@ -8,10 +8,10 @@ export function Features() {
     {
       icon: (
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" role="img" aria-hidden="true">
-          <rect x="4" y="8" width="40" height="32" rx="8" fill="#ddd6fe" stroke="#4f7cff" strokeWidth="2" />
-          <path d="M18 20l-6 4 6 4" stroke="#4f7cff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M30 20l6 4-6 4" stroke="#4f7cff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          <line x1="24" y1="16" x2="24" y2="32" stroke="#4f7cff" strokeWidth="2.5" strokeLinecap="round" />
+          <rect x="4" y="8" width="40" height="32" rx="8" fill="#ddd6fe" stroke="#8b5cf6" strokeWidth="2" />
+          <path d="M18 20l-6 4 6 4" stroke="#8b5cf6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M30 20l6 4-6 4" stroke="#8b5cf6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          <line x1="24" y1="16" x2="24" y2="32" stroke="#8b5cf6" strokeWidth="2.5" strokeLinecap="round" />
         </svg>
       ),
       title: "Bite-sized lessons",
@@ -21,7 +21,7 @@ export function Features() {
     {
       icon: (
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" role="img" aria-hidden="true">
-          <rect x="6" y="6" width="36" height="36" rx="8" fill="#67e8f9" stroke="#22d3ee" strokeWidth="2" />
+          <rect x="6" y="6" width="36" height="36" rx="8" fill="#7de2f7" stroke="#22d3ee" strokeWidth="2" />
           <path d="M16 18h4v4h-4zM28 18h4v4h-4zM22 28h4v4h-4z" fill="#22d3ee" />
           <rect x="16" y="26" width="16" height="2" rx="1" fill="#22d3ee" />
         </svg>
@@ -33,9 +33,9 @@ export function Features() {
     {
       icon: (
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" role="img" aria-hidden="true">
-          <circle cx="24" cy="24" r="18" fill="#ddd6fe" stroke="#4f7cff" strokeWidth="2" />
-          <path d="M24 14v10l7 5" stroke="#4f7cff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="24" cy="24" r="3" fill="#4f7cff" />
+          <circle cx="24" cy="24" r="18" fill="#ddd6fe" stroke="#8b5cf6" strokeWidth="2" />
+          <path d="M24 14v10l7 5" stroke="#8b5cf6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="24" cy="24" r="3" fill="#8b5cf6" />
         </svg>
       ),
       title: "Earn XP & keep streaks",

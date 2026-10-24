@@ -26,25 +26,25 @@ export function HeroIllustration({ className }) {
         width="288"
         height="240"
         rx="12"
-        fill="#101735"
-        stroke="#2b3757"
+        fill="#17142b"
+        stroke="#2c284e"
         strokeWidth="2"
       />
-      <line x1="96" y1="124" x2="384" y2="124" stroke="#2b3757" strokeWidth="2" />
-      <circle cx="120" cy="102" r="7" fill="#4f7cff" />
+      <line x1="96" y1="124" x2="384" y2="124" stroke="#2c284e" strokeWidth="2" />
+      <circle cx="120" cy="102" r="7" fill="#8b5cf6" />
       <circle cx="142" cy="102" r="7" fill="#22d3ee" />
-      <circle cx="164" cy="102" r="7" fill="#5f6d94" />
+      <circle cx="164" cy="102" r="7" fill="#6f6a9e" />
 
       {/* code lines */}
-      <rect x="120" y="148" width="120" height="14" rx="7" fill="#4f7cff" />
-      <rect x="120" y="174" width="200" height="14" rx="7" fill="#5f6d94" />
+      <rect x="120" y="148" width="120" height="14" rx="7" fill="#8b5cf6" />
+      <rect x="120" y="174" width="200" height="14" rx="7" fill="#6f6a9e" />
       <rect x="120" y="200" width="160" height="14" rx="7" fill="#22d3ee" />
-      <rect x="140" y="226" width="180" height="14" rx="7" fill="#93a0c4" />
+      <rect x="140" y="226" width="180" height="14" rx="7" fill="#a29fca" />
       <rect x="140" y="252" width="96" height="14" rx="7" fill="#8b5cf6" />
       <rect x="120" y="278" width="140" height="14" rx="7" fill="#ddd6fe" />
 
       {/* play badge */}
-      <circle cx="352" cy="296" r="40" fill="#4f7cff" stroke="#312e81" strokeWidth="2" />
+      <circle cx="352" cy="296" r="40" fill="#8b5cf6" stroke="#35275c" strokeWidth="2" />
       <path d="M342 274l32 22-32 22z" fill="#ffffff" />
     </svg>
   );

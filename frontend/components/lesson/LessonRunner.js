@@ -70,11 +70,11 @@ function ExitConfirmModal({ open, onStay, onLeave, current, total }) {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <button type="button" aria-label="Close" onClick={onStay} className="absolute inset-0 bg-indigo-ink/60 backdrop-blur-[2px]" />
-      <div className="relative w-full max-w-[420px] rounded-[16px] border-2 border-dim-steel bg-night p-6 shadow-[0_16px_32px_rgba(0,0,0,0.18)]">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#e6f4ff] text-electric-cyan">
+      <div role="dialog" aria-modal="true" aria-labelledby="exit-confirm-title" className="relative w-full max-w-[420px] rounded-[16px] border-2 border-dim-steel bg-night p-6 shadow-[0_16px_32px_rgba(0,0,0,0.18)]">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-soft-violet text-nex-blue">
           <PauseCircle className="h-7 w-7" strokeWidth={2} aria-hidden="true" />
         </div>
-        <h2 className="mt-3 text-center font-body text-[20px] font-black leading-[1.2] text-ink">Leave lesson?</h2>
+        <h2 id="exit-confirm-title" className="mt-3 text-center font-body text-[20px] font-black leading-[1.2] text-ink">Leave lesson?</h2>
         <p className="mt-2 text-center font-body text-[14px] font-medium leading-[1.4] text-steel">
           Your progress up to exercise <span className="font-bold text-ink">{current}</span> of <span className="font-bold text-ink">{total}</span> will be saved. You can continue later from where you left.
         </p>

@@ -13,21 +13,21 @@ function CommunityIllustration() {
       className="h-auto w-full max-w-[440px]"
     >
       {/* chat bubble 1 — user */}
-      <rect x="60" y="60" width="240" height="60" rx="16" fill="#ddd6fe" stroke="#4f7cff" strokeWidth="2" />
+      <rect x="60" y="60" width="240" height="60" rx="16" fill="#ddd6fe" stroke="#8b5cf6" strokeWidth="2" />
       <circle cx="100" cy="90" r="16" fill="#ff9600" />
-      <text x="130" y="95" fontFamily="sans-serif" fontSize="13" fontWeight="500" fill="#0b1026">How does a loop work?</text>
+      <text x="130" y="95" fontFamily="sans-serif" fontSize="13" fontWeight="500" fill="#0e0c1d">How does a loop work?</text>
 
       {/* chat bubble 2 — AI */}
-      <rect x="140" y="140" width="280" height="70" rx="16" fill="#67e8f9" stroke="#22d3ee" strokeWidth="2" />
+      <rect x="140" y="140" width="280" height="70" rx="16" fill="#7de2f7" stroke="#22d3ee" strokeWidth="2" />
       <circle cx="180" cy="175" r="16" fill="#22d3ee" />
       <text x="180" y="180" fontFamily="sans-serif" fontSize="10" textAnchor="middle" fill="#ffffff" fontWeight="700">AI</text>
-      <text x="210" y="170" fontFamily="sans-serif" fontSize="13" fontWeight="500" fill="#0b1026">A loop repeats code until a</text>
-      <text x="210" y="190" fontFamily="sans-serif" fontSize="13" fontWeight="500" fill="#0b1026">condition is met. Try it below!</text>
+      <text x="210" y="170" fontFamily="sans-serif" fontSize="13" fontWeight="500" fill="#0e0c1d">A loop repeats code until a</text>
+      <text x="210" y="190" fontFamily="sans-serif" fontSize="13" fontWeight="500" fill="#0e0c1d">condition is met. Try it below!</text>
 
       {/* chat bubble 3 — user reply */}
-      <rect x="60" y="230" width="200" height="50" rx="16" fill="#ddd6fe" stroke="#4f7cff" strokeWidth="2" />
+      <rect x="60" y="230" width="200" height="50" rx="16" fill="#ddd6fe" stroke="#8b5cf6" strokeWidth="2" />
       <circle cx="100" cy="255" r="16" fill="#ce82ff" />
-      <text x="130" y="260" fontFamily="sans-serif" fontSize="13" fontWeight="500" fill="#0b1026">Got it, thanks!</text>
+      <text x="130" y="260" fontFamily="sans-serif" fontSize="13" fontWeight="500" fill="#0e0c1d">Got it, thanks!</text>
 
       {/* decorative */}
       <circle cx="420" cy="50" r="16" fill="#ff9600" />

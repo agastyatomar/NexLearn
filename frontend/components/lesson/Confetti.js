@@ -4,7 +4,7 @@
    28 pieces, CSS-only, respects prefers-reduced-motion (hidden).
    No external deps, no canvas. */
 
-const COLORS = ["#4f7cff", "#22d3ee", "#ff9600", "#ce82ff", "#ff86d0", "#ffe500"];
+const COLORS = ["#8b5cf6", "#22d3ee", "#ff9600", "#ce82ff", "#ff86d0", "#ffe500"];
 
 export function Confetti({ show }) {
   if (!show) return null;
@@ -31,7 +31,7 @@ export function Confetti({ show }) {
               width: `${w}px`,
               height: `${h}px`,
               background: color,
-              border: "2px solid #312e81",
+              border: "2px solid #35275c",
               transform: `rotate(${rotate}deg)`,
               animation: `confetti-fall ${duration}s cubic-bezier(0.22,1,0.36,1) ${delay}s forwards`,
             }}

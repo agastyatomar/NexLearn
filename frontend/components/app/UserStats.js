@@ -12,7 +12,7 @@ export function SidebarStats({ streakCount = 0, xp = 0, level = 1, xpInfo = null
     <div className="rounded-[16px] border-2 border-dim-steel bg-night p-3">
       <div className="grid grid-cols-3 gap-2">
         <div className="flex flex-col items-center gap-1.5 rounded-[12px] bg-[#fff4e6] px-1 py-2.5">
-          <span className="flex h-7 w-7 items-center justify-center rounded-[10px] bg-[#ff9600] text-snow">
+          <span className="flex h-7 w-7 items-center justify-center rounded-[10px] bg-[#ff9600] text-night">
             <Flame className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
           </span>
           <span className="font-body text-[16px] font-black leading-none text-ink">{streakCount}</span>
@@ -26,7 +26,7 @@ export function SidebarStats({ streakCount = 0, xp = 0, level = 1, xpInfo = null
           <span className="font-body text-[10px] font-bold uppercase leading-none tracking-[0.05em] text-steel">XP</span>
         </div>
         <div className="flex flex-col items-center gap-1.5 rounded-[12px] bg-[#e6f4ff] px-1 py-2.5">
-          <span className="flex h-7 w-7 items-center justify-center rounded-[10px] bg-electric-cyan text-snow">
+          <span className="flex h-7 w-7 items-center justify-center rounded-[10px] bg-electric-cyan text-night">
             <Trophy className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
           </span>
           <span className="font-body text-[16px] font-black leading-none text-ink">{level}</span>
@@ -64,7 +64,7 @@ export function TopbarStats({ streakCount = 0, xp = 0, level = 1 }) {
         <Zap className="h-3.5 w-3.5" strokeWidth={2.6} aria-hidden="true" />
         {xp}
       </span>
-      <span title={`Lv ${level}`} className="inline-flex items-center gap-1 rounded-full border-2 border-[#74c0fc] bg-electric-cyan px-2 py-1 font-body text-[12px] font-black leading-none text-snow">
+      <span title={`Lv ${level}`} className="inline-flex items-center gap-1 rounded-full border-2 border-[#74c0fc] bg-electric-cyan px-2 py-1 font-body text-[12px] font-black leading-none text-night">
         <Trophy className="h-3.5 w-3.5" strokeWidth={2.6} aria-hidden="true" />
         {level}
       </span>

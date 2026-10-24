@@ -85,8 +85,8 @@ function TocLink({ id, label, Icon }) {
 function Badge({ children, tone = "green" }) {
   const map = {
     green: "bg-soft-violet text-ink border-[#b6e3a0]",
-    blue: "bg-[#e6f4ff] text-electric-cyan border-[#67e8f9]",
-    gray: "bg-[#151d38] text-ink border-dim-steel",
+    blue: "bg-[#e6f4ff] text-electric-cyan border-[#7de2f7]",
+    gray: "bg-[#1a1730] text-ink border-dim-steel",
     ink: "bg-graphite text-snow border-graphite",
   };
   return (
@@ -639,7 +639,7 @@ export default function DocsPage() {
                   <li><Kbd>GET /ai/status</Kbd> · <Kbd>POST /ai/help</Kbd> (20/m limit, budget 20/day, cached, never leaks <Kbd>solution</Kbd>).</li>
                 </ul>
               </div>
-              <div className="rounded-[10px] border-2 border-[#67e8f9] bg-[#e6f4ff] px-3 py-2">
+              <div className="rounded-[10px] border-2 border-[#7de2f7] bg-[#e6f4ff] px-3 py-2">
                 <p className="font-body text-[12px] font-bold leading-[1.5] text-electric-cyan">
                   Every non-health route goes through <Kbd>requireDb</Kbd> — if Mongo is down the backend returns <Kbd>503 Database not connected</Kbd> instead of hanging.
                 </p>
@@ -738,7 +738,7 @@ compareOutput(actual, expected) // trim + \\r\\n→\\n
 // → { notImplemented: true, error: "Python runner not yet loaded..." }`}
               />
             </div>
-            <div className="mt-3 rounded-[10px] border-2 border-[#67e8f9] bg-[#e6f4ff] px-3 py-2">
+            <div className="mt-3 rounded-[10px] border-2 border-[#7de2f7] bg-[#e6f4ff] px-3 py-2">
               <p className="font-body text-[12px] font-bold leading-[1.5] text-electric-cyan">Pluggable by design — adding a new language is a new branch in <Kbd>runCode</Kbd> without touching any route.</p>
             </div>
           </section>
@@ -755,20 +755,20 @@ compareOutput(actual, expected) // trim + \\r\\n→\\n
               <Card className="p-4">
                 <h3 className="font-body text-[12px] font-black uppercase tracking-[0.05em] text-ink">Palette</h3>
                 <div className="mt-3 grid grid-cols-3 gap-2">
-                  <span className="flex flex-col items-center gap-1 rounded-[10px] border-2 border-graphite bg-nex-blue px-2 py-3 font-body text-[11px] font-black text-snow">#4f7cff</span>
+                  <span className="flex flex-col items-center gap-1 rounded-[10px] border-2 border-graphite bg-nex-blue px-2 py-3 font-body text-[11px] font-black text-snow">#8b5cf6</span>
                   <span className="flex flex-col items-center gap-1 rounded-[10px] border-2 border-dim-steel bg-soft-violet px-2 py-3 font-body text-[11px] font-black text-ink">#ddd6fe</span>
                   <span className="flex flex-col items-center gap-1 rounded-[10px] border-2 border-dim-steel bg-electric-cyan px-2 py-3 font-body text-[11px] font-black text-snow">#22d3ee</span>
-                  <span className="rounded-[10px] border-2 border-dim-steel bg-night px-2 py-2 text-center font-body text-[11px] font-bold text-ink">Night #0b1026</span>
-                  <span className="rounded-[10px] border-2 border-dim-steel bg-[#93a0c4] px-2 py-2 text-center font-body text-[11px] font-bold text-night">Steel #93a0c4</span>
-                  <span className="rounded-[10px] border-2 border-dim-steel bg-[#5f6d94] px-2 py-2 text-center font-body text-[11px] font-bold text-snow">Dim #5f6d94</span>
+                  <span className="rounded-[10px] border-2 border-dim-steel bg-night px-2 py-2 text-center font-body text-[11px] font-bold text-ink">Night #0e0c1d</span>
+                  <span className="rounded-[10px] border-2 border-dim-steel bg-[#a29fca] px-2 py-2 text-center font-body text-[11px] font-bold text-night">Steel #a29fca</span>
+                  <span className="rounded-[10px] border-2 border-dim-steel bg-[#6f6a9e] px-2 py-2 text-center font-body text-[11px] font-bold text-snow">Dim #6f6a9e</span>
                 </div>
-                <p className="mt-3 font-body text-[12px] font-medium leading-[1.5] text-steel">Nex Blue Deep <Kbd>#2d54c5</Kbd> and Pale Cyan <Kbd>#67e8f9</Kbd> are the only shadows — as <Kbd>box-shadow: 0 4px 0</Kbd> press edges.</p>
+                <p className="mt-3 font-body text-[12px] font-medium leading-[1.5] text-steel">Nex Blue Deep <Kbd>#6d28d9</Kbd> and Pale Cyan <Kbd>#7de2f7</Kbd> are the only shadows — as <Kbd>box-shadow: 0 4px 0</Kbd> press edges.</p>
               </Card>
               <Card className="p-4">
                 <h3 className="font-body text-[12px] font-black uppercase tracking-[0.05em] text-ink">Rules</h3>
                 <ul className="mt-2 list-disc space-y-1 pl-5 font-body text-[12px] font-medium leading-[1.5] text-steel">
                   <li>12px radius on every button/pill/nav item, 2px borders — gradients only inside the logo mark.</li>
-                  <li>Body stays <Kbd>#93a0c4 @ 500</Kbd>; headings in <Kbd>#dbe3f5</Kbd> / <Kbd>#4f7cff</Kbd> on <Kbd>#0b1026</Kbd> surfaces.</li>
+                  <li>Body stays <Kbd>#a29fca @ 500</Kbd>; headings in <Kbd>#e6e3f8</Kbd> / <Kbd>#8b5cf6</Kbd> on <Kbd>#0e0c1d</Kbd> surfaces.</li>
                   <li>Links/outline CTA text only in <Kbd>#22d3ee</Kbd>; hover is 250ms <Kbd>ease-smooth-out</Kbd>.</li>
                   <li>Base 4px scale: 8/12/16/24/32/40/48/64/80/96. Max content 1200px.</li>
                 </ul>

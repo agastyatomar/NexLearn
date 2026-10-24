@@ -7,9 +7,9 @@ export function ExerciseTypes() {
     {
       icon: (
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" role="img" aria-hidden="true">
-          <circle cx="20" cy="20" r="18" fill="#ddd6fe" stroke="#4f7cff" strokeWidth="2" />
-          <circle cx="14" cy="20" r="4" fill="#4f7cff" />
-          <circle cx="26" cy="20" r="4" fill="#4f7cff" />
+          <circle cx="20" cy="20" r="18" fill="#ddd6fe" stroke="#8b5cf6" strokeWidth="2" />
+          <circle cx="14" cy="20" r="4" fill="#8b5cf6" />
+          <circle cx="26" cy="20" r="4" fill="#8b5cf6" />
         </svg>
       ),
       title: "Multiple Choice",
@@ -17,7 +17,7 @@ export function ExerciseTypes() {
     {
       icon: (
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" role="img" aria-hidden="true">
-          <rect x="4" y="8" width="32" height="24" rx="6" fill="#67e8f9" stroke="#22d3ee" strokeWidth="2" />
+          <rect x="4" y="8" width="32" height="24" rx="6" fill="#7de2f7" stroke="#22d3ee" strokeWidth="2" />
           <rect x="10" y="14" width="14" height="3" rx="1.5" fill="#22d3ee" />
           <rect x="10" y="22" width="20" height="3" rx="1.5" fill="#22d3ee" />
         </svg>
@@ -27,9 +27,9 @@ export function ExerciseTypes() {
     {
       icon: (
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" role="img" aria-hidden="true">
-          <rect x="6" y="6" width="28" height="28" rx="6" fill="#ddd6fe" stroke="#4f7cff" strokeWidth="2" />
-          <path d="M14 14l6 6-6 6" stroke="#4f7cff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          <line x1="22" y1="26" x2="28" y2="26" stroke="#4f7cff" strokeWidth="2.5" strokeLinecap="round" />
+          <rect x="6" y="6" width="28" height="28" rx="6" fill="#ddd6fe" stroke="#8b5cf6" strokeWidth="2" />
+          <path d="M14 14l6 6-6 6" stroke="#8b5cf6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          <line x1="22" y1="26" x2="28" y2="26" stroke="#8b5cf6" strokeWidth="2.5" strokeLinecap="round" />
         </svg>
       ),
       title: "Arrange Code",
@@ -37,8 +37,8 @@ export function ExerciseTypes() {
     {
       icon: (
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" role="img" aria-hidden="true">
-          <circle cx="20" cy="20" r="18" fill="#ddd6fe" stroke="#4f7cff" strokeWidth="2" />
-          <text x="20" y="26" fontFamily="sans-serif" fontSize="18" textAnchor="middle" fontWeight="700" fill="#4f7cff">?</text>
+          <circle cx="20" cy="20" r="18" fill="#ddd6fe" stroke="#8b5cf6" strokeWidth="2" />
+          <text x="20" y="26" fontFamily="sans-serif" fontSize="18" textAnchor="middle" fontWeight="700" fill="#8b5cf6">?</text>
         </svg>
       ),
       title: "Predict Output",
@@ -56,8 +56,8 @@ export function ExerciseTypes() {
     {
       icon: (
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" role="img" aria-hidden="true">
-          <rect x="4" y="8" width="32" height="24" rx="6" fill="#ddd6fe" stroke="#4f7cff" strokeWidth="2" />
-          <path d="M14 20l4 4 8-8" stroke="#4f7cff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          <rect x="4" y="8" width="32" height="24" rx="6" fill="#ddd6fe" stroke="#8b5cf6" strokeWidth="2" />
+          <path d="M14 20l4 4 8-8" stroke="#8b5cf6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       ),
       title: "Write Code",
@@ -65,7 +65,7 @@ export function ExerciseTypes() {
     {
       icon: (
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" role="img" aria-hidden="true">
-          <rect x="4" y="8" width="32" height="24" rx="6" fill="#67e8f9" stroke="#22d3ee" strokeWidth="2" />
+          <rect x="4" y="8" width="32" height="24" rx="6" fill="#7de2f7" stroke="#22d3ee" strokeWidth="2" />
           <path d="M13 15h14M13 20h9M13 25h14" stroke="#22d3ee" strokeWidth="2.5" strokeLinecap="round" />
           <circle cx="28" cy="26" r="5" fill="#22d3ee" />
           <path d="M26 26l1.5 1.5L30 25" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

@@ -1,15 +1,15 @@
-import { Nunito, Nunito_Sans } from "next/font/google";
+import { Nunito_Sans, Sora } from "next/font/google";
 import "./globals.css";
 import { siteUrl, SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, OG_IMAGE } from "@/lib/site";
 import { RegisterSW } from "@/components/pwa/RegisterSW";
 
-/* Fonts: Nunito (800/900) backs --font-feather (display) and
-   Nunito Sans (500/700) backs --font-body (body). */
+/* Fonts: Sora (600/700/800) backs --font-feather (display — Aurora Pro
+   headline voice) and Nunito Sans (500/700) backs --font-body. */
 
-const feather = Nunito({
+const feather = Sora({
   variable: "--font-feather",
   subsets: ["latin"],
-  weight: ["800", "900"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
@@ -101,7 +101,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0b1026",
+  themeColor: "#0e0c1d",
 };
 
 export default function RootLayout({ children }) {

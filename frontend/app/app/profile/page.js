@@ -41,11 +41,11 @@ function StreakCalendar({ streak }) {
   }
 
   return (
-    <div className="grid grid-cols-7 gap-2 sm:gap-3">
+    <div className="grid grid-cols-7 gap-1.5 sm:gap-3">
       {days.map((day, idx) => (
         <div key={idx} className="flex flex-col items-center gap-1.5 sm:gap-2">
           <span
-            className={`flex h-[48px] w-[48px] items-center justify-center rounded-full border-[2.5px] text-[15px] font-black leading-none shadow-sm transition-colors sm:h-[56px] sm:w-[56px] sm:text-[16px] ${
+            className={`flex h-[38px] w-[38px] items-center justify-center rounded-full border-[2.5px] text-[15px] font-black leading-none shadow-sm transition-colors sm:h-[56px] sm:w-[56px] sm:text-[16px] ${
               day.filled
                 ? "border-nex-blue bg-nex-blue text-snow shadow-[0_3px_0_var(--color-nex-blue-deep)]"
                 : day.isToday
@@ -53,7 +53,7 @@ function StreakCalendar({ streak }) {
                   : "border-dim-steel bg-night text-steel"
             }`}
           >
-            {day.filled ? <Check className="h-[22px] w-[22px] sm:h-[24px] sm:w-[24px]" strokeWidth={2.8} aria-hidden="true" /> : <span className="font-body text-[14px] font-black sm:text-[15px]">{day.label.slice(0, 1)}</span>}
+            {day.filled ? <Check className="h-[16px] w-[16px] sm:h-[24px] sm:w-[24px]" strokeWidth={2.8} aria-hidden="true" /> : <span className="font-body text-[13px] font-black sm:text-[15px]">{day.label.slice(0, 1)}</span>}
           </span>
           <span className={`font-body text-[12px] font-bold leading-none sm:text-[13px] ${day.isToday ? "text-ink" : "text-steel"}`}>{day.label}</span>
           <span className="hidden font-body text-[11px] font-medium leading-none text-steel sm:block sm:text-[12px]">

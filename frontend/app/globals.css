@@ -3,32 +3,34 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ================================================================
-   NexLearn design foundation — deep navy / near-black surfaces with
-   restrained electric blue, violet, and cyan accents. Dark theme
-   by default. Motion tokens/patterns: transitions-dev skill
-   (`.agents/skills/transitions-dev`).
-   Do's and Don'ts: 12px radius, 2px borders, flat fills, subtle
-   glass effects only where they help. Electric blue #4f7cff is the
-   primary CTA + display color; cyan #22d3ee for links; violet
-   #8b5cf6 accents. The only shadow is the 4px button press-edge.
+   NexLearn AURORA PRO design foundation — deep midnight purple
+   surfaces with electric violet as the primary accent, soft
+   lavender washes, and a restrained cyan reserved for links and
+   data accents. Dark theme by default.
+   Do's and Don'ts: 12px radius, 2px borders, flat fills, gradients
+   only on hero/CTA displays, subtle glass only where it helps.
+   Electric violet #8b5cf6 is the primary CTA + display color;
+   cyan #22d3ee for links/secondary; lavender #c4b5fd highlights.
+   The only solid shadow is the 4px button press-edge (other
+   shadows are ambient, max 32px blur, rgba-black only).
    ================================================================ */
 
 @theme {
-  /* ---- Colors (NexLearn Tokens — Colors) ---- */
-  --color-nex-blue: #4f7cff;
-  --color-nex-blue-deep: #2d54c5;
-  --color-nex-blue-soft: #93c5fd;
-  --color-electric-cyan: #22d3ee;
-  --color-pale-cyan: #67e8f9;
-  --color-soft-violet: #ddd6fe;
-  --color-indigo-ink: #312e81;
-  --color-night: #0b1026;
-  --color-snow: #f7f9ff;
-  --color-ink: #dbe3f5;
-  --color-steel: #93a0c4;
-  --color-dim-steel: #5f6d94;
-  --color-graphite: #182142;
-  --color-abyss: #070b18;
+  /* ---- Colors (Aurora Pro tokens) ---- */
+  --color-nex-blue: #8b5cf6;          /* electric violet — primary */
+  --color-nex-blue-deep: #6d28d9;     /* violet press edge */
+  --color-nex-blue-soft: #c4b5fd;     /* light lavender accent */
+  --color-electric-cyan: #22d3ee;     /* restrained cyan — links/data */
+  --color-pale-cyan: #7de2f7;         /* cyan press edge on outline */
+  --color-soft-violet: #ddd6fe;       /* lavender wash */
+  --color-indigo-ink: #35275c;        /* violet ink (hover/selection) */
+  --color-night: #0e0c1d;             /* deep midnight purple canvas */
+  --color-snow: #f8f7ff;
+  --color-ink: #e6e3f8;
+  --color-steel: #a29fca;
+  --color-dim-steel: #6f6a9e;
+  --color-graphite: #1b1832;          /* surface */
+  --color-abyss: #080712;
 
   /* ---- Type scale (design.md Type Scale) ---- */
   --text-caption: 13px;
@@ -108,25 +110,25 @@
 }
 
 :root {
-  /* ---- shadcn/ui variables, dark navy default ---- */
-  --background: #0b1026; /* Night — deep navy page canvas */
-  --foreground: #dbe3f5; /* Ink — workhorse light text */
-  --card: #101735;
-  --card-foreground: #dbe3f5;
-  --popover: #101735;
-  --popover-foreground: #dbe3f5;
-  --primary: #4f7cff; /* Electric blue CTA fill */
-  --primary-foreground: #f7f9ff;
-  --secondary: #1c2542; /* Graphite tint */
-  --secondary-foreground: #dbe3f5;
-  --muted: #151d38; /* neutral surface for overlays/skeletons */
-  --muted-foreground: #93a0c4; /* Steel muted text */
-  --accent: #2a2550; /* violet-leaning accent wash */
+  /* ---- shadcn/ui variables, Aurora dark default ---- */
+  --background: #0e0c1d; /* Night — deep midnight purple canvas */
+  --foreground: #e6e3f8; /* Ink — workhorse light text */
+  --card: #17142b;
+  --card-foreground: #e6e3f8;
+  --popover: #17142b;
+  --popover-foreground: #e6e3f8;
+  --primary: #8b5cf6; /* Electric violet CTA fill */
+  --primary-foreground: #f8f7ff;
+  --secondary: #221d3f; /* graphite violet tint */
+  --secondary-foreground: #e6e3f8;
+  --muted: #1a1730; /* neutral surface for overlays/skeletons */
+  --muted-foreground: #a29fca; /* Steel muted text */
+  --accent: #241d45; /* violet-leaning accent wash */
   --accent-foreground: #ddd6fe;
   --destructive: #e5484d;
-  --border: #2b3757; /* steel border */
-  --input: #2b3757;
-  --ring: #22d3ee; /* electric cyan focus ring */
+  --border: #2c284e; /* violet-steel border */
+  --input: #2c284e;
+  --ring: #a78bfa; /* lavender focus ring */
   --radius: 0.75rem; /* 12px */
 
   /* ---- Layout (design.md Layout) ---- */
@@ -159,27 +161,27 @@
   --panel-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Dark theme alias — the root theme is already dark navy; this
+/* Dark theme alias — the root theme is already dark Aurora; this
    block mirrors it so `.dark` toggles remain a no-op-safe hook. */
 .dark {
-  --background: #0b1026;
-  --foreground: #dbe3f5;
-  --card: #101735;
-  --card-foreground: #dbe3f5;
-  --popover: #101735;
-  --popover-foreground: #dbe3f5;
-  --primary: #4f7cff;
-  --primary-foreground: #f7f9ff;
-  --secondary: #1c2542;
-  --secondary-foreground: #dbe3f5;
-  --muted: #151d38;
-  --muted-foreground: #93a0c4;
-  --accent: #2a2550;
+  --background: #0e0c1d;
+  --foreground: #e6e3f8;
+  --card: #17142b;
+  --card-foreground: #e6e3f8;
+  --popover: #17142b;
+  --popover-foreground: #e6e3f8;
+  --primary: #8b5cf6;
+  --primary-foreground: #f8f7ff;
+  --secondary: #221d3f;
+  --secondary-foreground: #e6e3f8;
+  --muted: #1a1730;
+  --muted-foreground: #a29fca;
+  --accent: #241d45;
   --accent-foreground: #ddd6fe;
   --destructive: #e5484d;
-  --border: #2b3757;
-  --input: #2b3757;
-  --ring: #22d3ee;
+  --border: #2c284e;
+  --input: #2c284e;
+  --ring: #a78bfa;
   --radius: 0.75rem;
 }
 
@@ -227,6 +229,82 @@
 }
 .scroll-thin::-webkit-scrollbar-track {
   background: transparent;
+}
+
+/* ================================================================
+   AURORA PRO utilities — used sparingly: hero, CTA and key
+   feature displays only. Everything else stays flat.
+   ================================================================ */
+
+/* Ambient aurora backdrop: fixed radial glows behind hero/CTA
+   sections. Pure paint (no pointer interaction cost). */
+.aurora-backdrop {
+  position: relative;
+  isolation: isolate;
+}
+.aurora-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(42rem 24rem at 12% -8%, rgb(139 92 246 / 0.16), transparent 62%),
+    radial-gradient(36rem 20rem at 88% 4%, rgb(34 211 238 / 0.08), transparent 60%),
+    radial-gradient(30rem 22rem at 55% 88%, rgb(109 40 217 / 0.10), transparent 66%);
+}
+
+/* Gradient wash for full-width bands (hero canvas, CTA footer) */
+.aurora-band {
+  background:
+    radial-gradient(60rem 30rem at 8% 0%, rgb(139 92 246 / 0.12), transparent 60%),
+    radial-gradient(44rem 26rem at 92% 12%, rgb(34 211 238 / 0.07), transparent 58%);
+}
+
+/* Gradient display text — headline-only */
+.aurora-text {
+  background: linear-gradient(
+    100deg,
+    var(--color-snow) 8%,
+    var(--color-nex-blue-soft) 42%,
+    var(--color-electric-cyan) 78%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Skeleton shimmer for loading states */
+.skeleton {
+  background: var(--color-muted);
+  border-radius: var(--radius-buttons);
+  position: relative;
+  overflow: hidden;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(162 159 202 / 0.14),
+    transparent
+  );
+  animation: skeleton-sweep 1.4s ease-in-out infinite;
+}
+@keyframes skeleton-sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Visible keyboard focus for every interactive control */
+:where(a, button, [role="button"], input, textarea, select):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-buttons);
 }
 
 /* ---- Nav links: nav-label style (15px/700 uppercase 0.0530em).
@@ -442,5 +520,8 @@
   }
   .hero-reveal {
     opacity: 1 !important;
+  }
+  .skeleton::after {
+    animation: none !important;
   }
 }

@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 
 export function CTA() {
   return (
-    <section className="bg-night">
+    <section className="aurora-backdrop bg-night">
       <div className="mx-auto w-full max-w-[1200px] px-4 py-20 text-center sm:px-6 md:py-28">
-        <h2 className="font-feather text-[32px] leading-[1.2] font-black tracking-[-0.02em] text-nex-blue sm:text-[40px] md:text-[48px]">
+        <h2 className="aurora-text font-feather text-[32px] leading-[1.2] font-black tracking-[-0.02em] sm:text-[40px] md:text-[48px]">
           ready to start coding?
         </h2>
         <p className="mx-auto mt-4 max-w-[480px] font-body text-body leading-body font-medium text-steel">

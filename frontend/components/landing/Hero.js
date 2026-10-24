@@ -9,10 +9,10 @@ import { HeroIllustration } from "@/components/landing/HeroIllustration";
 
 export function Hero() {
   return (
-    <section className="bg-night">
+    <section className="aurora-backdrop bg-night">
       <div className="mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-10 px-4 py-20 sm:px-6 md:grid-cols-2 md:py-28 lg:gap-[64px]">
         <div className="flex max-w-[480px] flex-col items-start gap-6">
-          <h1 className="hero-reveal hero-reveal--1 font-feather text-[40px] leading-[1.2] font-black tracking-[-0.02em] text-nex-blue sm:text-[48px] lg:text-[64px]">
+          <h1 className="aurora-text hero-reveal hero-reveal--1 font-feather text-[40px] leading-[1.2] font-black tracking-[-0.02em] sm:text-[48px] lg:text-[64px]">
             Learn to code. Free. Fun. Together.
           </h1>
           <p className="hero-reveal hero-reveal--2 font-body text-[17px] leading-[1.18] font-medium text-steel">
