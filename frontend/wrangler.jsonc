@@ -27,6 +27,9 @@
   },
   "vars": {
     "NODE_ENV": "production",
+    // SSR components fetch /api/* server-side; on Cloudflare the same Worker
+    // serves both — point them at its public URL (browser already uses /api).
+    "BACKEND_URL": "https://nexlearn.agastyatomar50.workers.dev",
     "AI_DAILY_LIMIT": "20",
     "AI_AUTO_REPLY_DELAY_MS": "180000"
   }

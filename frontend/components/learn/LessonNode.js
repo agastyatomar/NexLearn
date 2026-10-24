@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/static-components -- Icon is selected per lesson title */
 "use client";
 
 import Link from "next/link";

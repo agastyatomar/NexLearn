@@ -27,6 +27,7 @@ const LINK_COLUMNS = [
   {
     heading: "Legal",
     links: [
+      { label: "About", href: "/about" },
       { label: "Policy", href: "/policy" },
       { label: "Terms", href: "/terms" },
     ],
@@ -129,8 +130,8 @@ export function Footer() {
               @agastyatomar
             </a>
             <p className="font-body text-[13px] leading-[1.23] text-snow/60">
-              Maintained by{" "}
-              <span className="font-bold text-snow">agastyatomar</span>
+              Made by <span className="font-bold text-snow">agastyatomar</span> {" "}
+              <span className="text-snow/40">— dedicated to every first &ldquo;Hello, World&rdquo;.</span>
             </p>
           </div>
         </div>
