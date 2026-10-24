@@ -18,7 +18,7 @@
     {
       "binding": "DB",
       "database_name": "nexlearn",
-      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "database_id": "2e7a9392-b4c8-4df1-a92f-d8d4220313ff",
       "migrations_dir": "worker/d1/migrations"
     }
   ],

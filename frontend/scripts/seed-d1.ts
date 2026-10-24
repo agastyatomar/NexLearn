@@ -22,6 +22,7 @@ import { join } from "node:path";
 
 const contentDir = join(import.meta.dir, "..", "worker", "d1", "content");
 const OUT_SQL = join(import.meta.dir, "..", "worker", "d1", "content-seed.sql");
+const SCHEMA_SQL = join(import.meta.dir, "..", "worker", "d1", "migrations", "0001_init.sql");
 const NOW = new Date().toISOString();
 
 /* ---------- uuid v5-style deterministic ids ---------- */
@@ -80,18 +81,6 @@ type LoadedContent = {
 
 type Statements = string[];
 
-function pushCourse(st: Statements, c: LoadedContent): string {
-  const courseId = courseReview(c.slug);
-  void courseId;
-  return courseId;
-}
-function courseReview(slug: string) {
-  // placeholder, replaced below
-  return slug;
-}
-void pushCourse;
-void courseReview;
-
 async function emit() {
   const files = ["js-from-zero.json", "code-with-ai.json", "python-from-zero.json"].map((f) => join(contentDir, f));
   const courses: LoadedContent[] = files
@@ -101,9 +90,6 @@ async function emit() {
     console.error("No content JSON found — run: bun scripts/extract-content.ts");
     process.exit(1);
   }
-
-  const timestamps = { createdAt: NOW, updatedAt: NOW };
-  void timestamps;
 
   const st: Statements = [];
   const dryRunRows: string[] = [];
@@ -132,8 +118,6 @@ async function emit() {
            VALUES (${sqlText(lessonId)}, ${sqlText(unitId)}, ${sqlText(lesson.title)}, ${sqlText(lesson.description ?? "")}, ${li}, ${Math.max(10, lesson.xp)}, ${sqlText(NOW)}, ${sqlText(NOW)});`,
         );
         for (const [ei, ex] of lesson.exercises.entries()) {
-          const exerciseId = await contentId("exercise", c.slug, unit.title, lesson.title, String(ei));
-          void exerciseId;
           st.push(
             `INSERT OR REPLACE INTO exercises (id, lesson_id, type, prompt, content, solution, explanation, hints, sort_order, created_at, updated_at)
              VALUES (${sqlText(await contentId("exercise", c.slug, unit.title, lesson.title, String(ei)))}, ${sqlText(lessonId)}, ${sqlText(ex.type)}, ${sqlText(ex.prompt)}, ${sqlJson(ex.content)}, ${sqlJson(ex.solution)}, ${sqlText(ex.explanation ?? "")}, ${sqlJson(ex.hints ?? [])}, ${ei}, ${sqlText(NOW)}, ${sqlText(NOW)});`,
@@ -176,24 +160,40 @@ COMMIT;
       );
       process.exit(1);
     }
-    const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${dbId}/import`;
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ sql: sql.replace(/^--.*$\n/m, "") }),
-    });
-    const apiResponse = (await res.json()) as {
-      success?: boolean;
-      errors?: { code: number; message: string }[];
-      messages?: unknown[];
-      result?: { total_queries?: number };
-      meta?: unknown;
+    /* The import endpoint now needs a 3-step init/ingest/poll flow, so we ship
+       SQL through the /query endpoint instead — it executes multiple
+       statements per call and works fine with BEGIN..COMMIT wrapped text. */
+    const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${dbId}/query`;
+    const applySql = async (label: string, body: string) => {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        /* D1 forbits SQL BEGIN/COMMIT (its /query call is the atomic unit), so
+           the transaction wrapper generated for wrangler/desktop use is
+           stripped here; every INSERT OR REPLACE stays idempotent either way. */
+        body: JSON.stringify({
+          sql: body
+            .replace(/^--.*$\n/m, "")
+            .replace(/^\s*BEGIN;?\s*$/m, "")
+            .replace(/^\s*COMMIT;?\s*$/m, ""),
+        }),
+      });
+      const apiResponse = (await res.json()) as {
+        success?: boolean;
+        errors?: { code: number; message: string }[];
+        messages?: unknown[];
+        result?: { total_queries?: number }[];
+        meta?: unknown;
+      };
+      if (!apiResponse.success) {
+        console.error(`D1 query (${label}) failed (HTTP ${res.status}):`, JSON.stringify(apiResponse.errors ?? apiResponse, null, 2));
+        process.exit(1);
+      }
+      console.log(`D1 ok — ${label}: ${apiResponse.result?.length ?? "?"} statement groups executed.`);
     };
-    if (!apiResponse.success) {
-      console.error(`D1 import failed (HTTP ${res.status}):`, JSON.stringify(apiResponse.errors ?? apiResponse, null, 2));
-      process.exit(1);
-    }
-    console.log(`D1 import ok — executed ${apiResponse.result?.total_queries ?? st.length} statement groups.`);
+
+    await applySql("schema", readFileSync(SCHEMA_SQL, "utf8"));
+    await applySql("content", sql);
   }
 }
 
