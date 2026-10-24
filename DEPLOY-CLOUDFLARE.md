@@ -1,4 +1,4 @@
-# NexLearn on Cloudflare — from zero to live URL in ~30 minutes
+# NexLearn on Cloudflare — from zero to live URL in ~15 minutes
 
 Single source of truth for shipping the site for free with **one** Cloudflare
 account. After this, nobody who gets your link has to install anything — the
@@ -13,18 +13,26 @@ Browser ──> Cloudflare Worker (nexlearn)
                       └── Cloudflare D1 (SQLite) — the whole database
 ```
 
+**LIVE DEPLOYMENT:** nexlearn.agastyatomar50.workers.dev (via the GitHub Actions
+pipeline below — the whole flow is automatable without touching the dashboard).
+
 ## 0. What you need
 
 - A repo on GitHub (this one, with the `feature/cloudflare-native-deploy` branch pushed).
 - A Cloudflare account (free tier fits NexLearn's traffic comfortably).
+- `gh` CLI authenticated for secret setup (or manual dashboard access).
 
-## 1. Create the account + API token (10 min)
+## 1. Create the account + API token (~10 min)
 
 1. Sign up at <https://dash.cloudflare.com/sign-up> (email + password, skip card details).
 2. In the dashboard open **Profile → API Tokens → Create Token**.
 3. Use the **Edit Cloudflare Workers** template, then additionally enable:
+   - **Workers Scripts — Edit** (account) — REQUIRED for wrangler deploy
+   - **Workers KV Storage — Edit** (account)
    - **D1 — Edit** (migrations + seed import)
    - **Account Settings — Read** (needed to find your account id)
+   - **Workers Routes — Edit** (zone)
+   - Account Resources: **All accounts**
 4. Save the token somewhere private. **Never commit it.**
 5. Grab your **Account ID** from the dashboard home page (right sidebar).
 
@@ -84,7 +92,33 @@ npx wrangler d1 migrations apply nexlearn --remote
 npx wrangler d1 execute nexlearn --remote --file=worker/d1/content-seed.sql
 ```
 
-## 5. Deploy the Worker via Workers Builds (5 min)
+## 5. Deploy the Worker — GitHub Actions (recommended, 1 command)
+
+The repo ships `.github/workflows/deploy-workers.yml` (workflow_dispatch):
+checkout → bun install → `bun run cf:build` → `wrangler deploy` →
+`wrangler secret put JWT_SECRET`. It runs on ubuntu-latest, so the Android
+workerd limitation is irrelevant.
+
+```bash
+# one-time secrets (encrypted in the repo's Actions store):
+gh secret set CLOUDFLARE_API_TOKEN    -R agastyatomar/NexLearn --body "..."
+gh secret set CLOUDFLARE_ACCOUNT_ID   -R agastyatomar/NexLearn --body "..."
+gh secret set JWT_SECRET              -R agastyatomar/NexLearn --body "$(openssl rand -base64 48)"
+
+# deploy (any time):
+gh workflow run deploy-workers.yml -R agastyatomar/NexLearn --ref feature/cloudflare-native-deploy
+gh run watch -R agastyatomar/NexLearn       # follow the run live
+```
+
+Notes: the workflow file must ALSO exist on the default branch for
+`gh workflow run` dispatch to resolve (committed to `main` as well). If the
+token shorts "No access to the specified service" or "Cannot create the
+worker" during deploy, add **Workers Scripts — Edit (account)** to the token's
+permissions; the token VALUE does not change when editing permissions.
+Optionally pre-create the script via API (PUT /workers/scripts/nexlearn) to
+skip wrangler's existence pre-check on a fresh account.
+
+## 5b. Alternative: Workers Builds via dashboard (5 min)
 
 Dashboard → **Workers & Pages → Create → Workers → Import from git repo**
 
@@ -104,15 +138,19 @@ Node/bun pairing throws, add environment variables `NODE_VERSION=22` and
 
 After the first successful deploy the Worker is at:
 `https://nexlearn.<your-subdomain>.workers.dev` — that's your live link.
+(Live now: nexlearn.agastyatomar50.workers.dev — verified end-to-end:
+health, register, session cookie, courses, lessons, progress XP+CC,
+threads, economy.)
 
 ## 6. Secrets + settings (2 min)
 
-Dashboard → Worker → **Settings → Variables & Secrets**:
+Dashboard → Worker → **Settings → Variables & Secrets** (or `gh secret set`
++ the workflow's `wrangler secret put JWT_SECRET` step handles JWT already):
 
 | Key | Type | Value |
 |---|---|---|
-| `JWT_SECRET` | Secret | `openssl rand -base64 48` output |
-| `NODE_ENV` | Plain | `production` (already in vars) |
+| `JWT_SECRET` | Secret | set automatically by the Actions pipeline |
+| `NODE_ENV` | Plain | `production` (already in wrangler vars) |
 | `GOOGLE_CLIENT_ID` | Secret | optional — enables Google sign-in |
 | `APPWRITE_ENDPOINT/PROJECT_ID/BUCKET_ID/API_KEY` | Secret | optional — avatar uploads |
 | `GROQ_API_KEY` or `OPENROUTER_API_KEY` | Secret | optional — AI hint helper |
